@@ -1,0 +1,88 @@
+﻿@model InventoryManagementSystem.ViewModels.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Blank_Layout.cshtml";
+}
+<script src="~/Scripts/RegisterScript/Register.js"></script>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-md-11">
+                    <h4>Register</h4>
+                </div>
+                <div class="col-md-1">
+                    <h4><span><a href="@Url.Action("Login", "Account")"><b>Login</b></a></span></h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <form name="simpleForm" id="simpleForm" action="" onsubmit="Success()" method="post" class="needs-validation" enctype="multipart/form-data" novalidate="">                 
+                    <div class="tab-content">
+                        <div id="step1" class="p-m tab-pane active">
+                            <p></p>
+                            <br />
+                            <div class="form-group row align-items-center" id="first_name">
+                                <label class="col-md-4 required text-md-right text-left">First Name</label>
+                                <div class="col-lg-4 col-md-6">
+                                    <input id="firstname" type="text" class="form-control" name="FirstName" required="">
+                                    <div class="invalid-feedback">
+                                        Please fill in your Name
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center" id="last_name">
+                                <label class="col-md-4 text-md-right text-left required">Last Name</label>
+                                <div class="col-lg-4 col-md-6">
+                                    <input id="lastname" type="text" class="form-control" name="LastName" required autofocus>
+                                    <div class="invalid-feedback">
+                                        Please fill in your Surname
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-4 required text-md-right text-left">Phone Number</label>
+                                <div class="col-lg-4 col-md-6">
+                                    <input id="phonenumber" type="text" class="form-control" onfocusout="checkPhoneNumber();" onkeypress="return isNumberKey(event)" name="PhoneNumber" maxlength="10" required autofocus>
+                                    <div class="invalid-feedback">
+                                        Please fill in your Phone Number
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-4 required text-md-right text-left">User Role</label>
+                                <div class="col-lg-4 col-md-6">
+                                    @Html.DropDownList("RoleId", null, "Select Role", htmlAttributes: new { @class = "form-control", required = "autofocus" })
+                                    <div class="invalid-feedback">
+                                        Please Select your Province
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-4 required text-md-right text-left">Email</label>
+                                <div class="col-lg-4 col-md-6">
+                                    <input id="emailaddress" type="email" placeholder="john.smith@gmail.com" class="form-control" onfocusout="UsernameAvailability();" name="EmailAddress" required autofocus>
+                                    <small><label class="text-danger" id="emailcheckresults"></label></small>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-4 required text-md-right text-left">Password</label>
+                                <div class="col-lg-4 col-md-6">
+                                    <input id="password" type="password" autocomplete="new-password" class="form-control pwstrength" data-indicator="pwindicator" name="Password" onfocusout="PasswordChecking();" required autofocus>
+                                    <small><label class="text-danger" id="Passwordcheckresults"></label></small>
+                                </div>
+                            </div>
+
+                            <div class="text-center m-t-xs">
+                                <button class="btn btn-primary" type="button" onclick="RegisterUser()" style="width:100px" value="Register">Register</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+

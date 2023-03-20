@@ -1,0 +1,114 @@
+﻿@model IEnumerable<InventoryManagementSystem.Models.Category>
+@{
+    ViewBag.Title = "GetAllCategories";
+    Layout = "~/Views/Shared/_TemplateLayout.cshtml";
+}
+
+<link href="~/Content/datatables.min.css" rel="stylesheet" />
+<script src="~/Scripts/Categories/Categories.js"></script>
+
+<style>
+    .button {
+        border-radius: 20px;
+    }
+
+    a {
+        color: black;
+    }
+</style>
+
+
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h1>View Categories</h1>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active"><a href="@Url.Action("Dashboard", "Home")">Dashboard</a></div>
+                <div class="breadcrumb-item">View Categories</div>
+            </div>
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <a class="btn btn-success" href="@Url.Action("AddCategory", "Categories")">Add + </a>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive" style="padding:5px">
+                                            <table width="100%" class="displayTable table table-striped table-hover" style="table-layout: fixed;">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="20%">Category Name</th>
+                                                        <th width="25%">Description</th>
+                                                        <th>Products</th>
+                                                        <th>Edit</th>
+                                                        <th>Remove</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <tr>
+                                                            <td class="ellipseDescription">
+                                                                <a href="#" style="color:gray" title="@item.CategoryName">@item.CategoryName</a>
+                                                            </td>
+                                                            <td class="ellipseDescription">
+                                                                <a href="#" style="color:gray" title="@item.Description">@item.Description</a>
+                                                            </td>
+                                                            <td class="ellipseDescription">
+                                                                <a href="@Url.Action("GetAllProducts", "Products")">(@{Html.RenderAction("GetNumberOfProductBycategoryId", "Products", new { categoryId = item.Category_ID });}) - Products</a>
+                                                            </td>
+                                                            <td>
+                                                                <a href="@Url.Action("EditCategory", "Categories", new {Id = item.Category_ID})" class="btn btn-warning">Edit</a>
+                                                            </td>
+                                                            <td>
+                                                                <button onclick="removeCategory('@item.Category_ID')" class="btn btn-danger">Remove</button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+@section Scripts {
+    <script src="~/Scripts/datatables.min.js"></script>
+
+    <script type="text/javascript">
+        $('.displayTable').dataTable({
+            dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+            "order": [[1, "desc"]],
+            responsive: true,
+            buttons: [
+                { extend: 'copy', className: 'btn-sm' },
+                { extend: 'csv', title: 'Categories', className: 'btn-sm', exportOptions: { columns: 'th:not(:last-child)' } },
+                { extend: 'pdf', title: 'Categories', className: 'btn-sm', exportOptions: { columns: 'th:not(:last-child)' } },
+                { extend: 'print', className: 'btn-sm', exportOptions: { columns: 'th:not(:last-child)' } }
+            ],
+
+            columnDefs: [{
+                "targets": [2],
+                "orderable": false,
+                "searchable": false
+            }]
+        });
+
+    </script>
+
+}
+
+

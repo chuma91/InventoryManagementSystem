@@ -1,0 +1,65 @@
+﻿@model InventoryManagementSystem.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Blank_Layout.cshtml";
+}
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="~/Scripts/LoginScripts/Login.js"></script>
+
+<div id="app">
+    <section class="section">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                  
+                    <div class="card card-primary">
+                        <div class="card-body">
+                            <form method="POST" action="#" class="needs-validation" novalidate="">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input id="emailaddress" type="email" class="form-control" name="EmailAddress" tabindex="1" required autofocus>
+                                    <div class="invalid-feedback">
+                                        Please fill in a valid email address
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="d-block">
+                                        <label for="password" class="control-label">Password</label>
+                                        <div class="float-right">
+                                            @*<a href="@Url.Action("ForgotPassword", "Account")" class="text-small">
+                                                Forgot Password?
+                                            </a>*@
+                                        </div>
+                                    </div>
+                                    <input id="password" type="password" class="form-control" name="Password" tabindex="2" required>
+                                    <div class="invalid-feedback">
+                                        Please fill in your password
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary btn-lg btn-block SignInUser" tabindex="4" onclick="UserLogin()">
+                                        Login
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="mt-5 text-muted text-center">
+                        Don't have an account? <a href="@Url.Action("Register", "Account")">Register</a>
+                    </div>
+                    <div class="simple-footer">
+                        Copyright &copy; InventoryManagementSystem <span id="year"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    //Javascript code that  retrieves the current year
+    document.getElementById("year").innerHTML = new Date().getFullYear();
+</script>

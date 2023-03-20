@@ -1,0 +1,87 @@
+﻿@using InventoryManagementSystem.Helpers;
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_TemplateLayout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<!-- Main Content -->
+<div class="main-content">
+
+    <section class="section">
+
+        <div class="section-header">
+            <h1>Dashboard</h1>
+        </div>
+        <div class="row" id="DashboardIcons">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <a href="@Url.Action("GetAllOrders", "Orders")">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-primary">
+                            <i class="far fa-file"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Orders</h4>
+                            </div>
+                            <div class="card-body">
+                                <span>@ViewBag.CountOrders</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <a href="@Url.Action("GetAllOrders", "Orders")">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-danger">
+                            <i class="far fa-bar-chart"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Received Orders</h4>
+                                
+                            </div>
+                            <div class="card-body">
+                                <span>@ViewBag.CountOrdersReceived</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <a href="@Url.Action("GetAllSuppliers", "Suppliers")">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-warning">
+                            <i class="far fa-support"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Suppliers</h4>
+                            </div>
+                            <div class="card-body">
+                                <span>@ViewBag.Suppliers</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+    </section>
+
+</div>
+
+@section scripts{
+
+    <!-- Template JS File -->
+    <script src="../assets/js/scripts.js"></script>
+    <script src="../assets/js/custom.js"></script>
+
+}
+
+

@@ -1,0 +1,92 @@
+﻿@model InventoryManagementSystem.Models.Category
+@{
+    ViewBag.Title = "EditCategory";
+    Layout = "~/Views/Shared/_TemplateLayout.cshtml";
+}
+@using InventoryManagementSystem.Helpers;
+<link href="~/Content/datatables.min.css" rel="stylesheet" />
+<script src="~/Scripts/Categories/Categories.js"></script>
+
+<style>
+    .button {
+        border-radius: 20px;
+    }
+
+    a {
+        color: black;
+    }
+</style>
+
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h3>Category</h3>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active">Categories</div>
+                <div class="breadcrumb-item"><a href="@Url.Action("GetAllCategories", "Categories")">Category List</a></div>
+            </div>
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Edit Category</h4>
+                        </div>
+                        <div class="card-body" style="align-items:center">
+                            <section class="section">
+                                <div class="container mt-auto">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                                            <div class="card card-primary">
+                                                <div class="card-body">
+                                                    <span class="help-block">
+                                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                    </span>
+                                                    <div class="row">
+                                                        <div class="form-group col-12">
+                                                            <label class="required">Category ID</label>
+                                                            @Html.TextBoxFor(m => m.Category_ID, new { @class = "form-control", id = "SelectedAreaLabel", placeholder = "Select Category", data_toggle = "modal", data_target = "#myModal", required = "required", @readonly = "readonly" })
+                                                            @Html.ValidationMessageFor(m => m.Category_ID, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-12">
+                                                            <label class="required">Category Name</label>
+                                                            @Html.TextBoxFor(m => m.CategoryName, new { @class = "form-control", id = "CategoryName", maxlength = 15, placeholder = "Enter Category Name", required = "required" })
+                                                            @Html.ValidationMessageFor(m => m.CategoryName, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-12">
+                                                            <label for="workRequestTitle" class="required">Description</label><br />
+                                                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control", id = "Description", placeholder = "Enter Description", required = "required" })
+                                                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row form-group">
+                                                        <div class="col-md-4"></div>
+                                                        <div class="col-md-5">
+                                                            <input type="button" onclick="UpdateCategory('@TempData["ID"]')" id="btnSubmit" class="btn btn-block btn-success" value="Edit" />
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+

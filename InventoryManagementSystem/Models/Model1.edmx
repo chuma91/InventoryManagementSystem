@@ -1,0 +1,547 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="InventoryManagementDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Category_ID" />
+          </Key>
+          <Property Name="Category_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_Name" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Customer_Email" Type="nvarchar" MaxLength="30" />
+          <Property Name="Customer_Telephone_Name" Type="nvarchar" MaxLength="24" />
+          <Property Name="Customer_Address" Type="nvarchar" MaxLength="24" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Order_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_ID" Type="nchar" MaxLength="1" />
+          <Property Name="Product_Bar_Code" Type="int" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="40" />
+          <Property Name="[Supplier_ID" Type="int" />
+          <Property Name="Date_Sold" Type="date" Nullable="false" />
+          <Property Name="Payment_Recieved" Type="nvarchar" MaxLength="15" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="OrderProduct_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Product_Bar_Code" />
+          </Key>
+          <Property Name="Product_Bar_Code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="40" />
+          <Property Name="Product_Date_Captured" Type="date" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="Product_Location" Type="nvarchar" MaxLength="40" />
+          <Property Name="Product_Status" Type="nvarchar" MaxLength="20" />
+          <Property Name="Product_Warranty" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="Product_CategoryID" Type="int" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="Supplier_ID" />
+          </Key>
+          <Property Name="Supplier_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Supplier_Name" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Supplier_Email" Type="nvarchar" MaxLength="30" />
+          <Property Name="Supplier_Telephone_Number" Type="nvarchar" MaxLength="24" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="200" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="RememberMe" Type="bit" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <Association Name="FK__Orders__OrderPro__4222D4EF">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Product_Bar_Code" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="OrderProduct_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products__Produc__3F466844">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Category_ID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="Product_CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products__Suppli__3E52440B">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="Supplier_ID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetAllCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllSuppliers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="RegisterNewUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="PhoneNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="PasswordHash" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="RoleId" Type="int" Mode="In" />
+          <Parameter Name="TerritoryId" Type="nvarchar" Mode="In" />
+          <Parameter Name="RememberMe" Type="bit" Mode="In" />
+          <Parameter Name="DateCreated" Type="datetime" Mode="In" />
+          <Parameter Name="IsDeleted" Type="bit" Mode="In" />
+        </Function>
+        <EntityContainer Name="InventoryManagementDatabaseModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Orders__OrderPro__4222D4EF" Association="Self.FK__Orders__OrderPro__4222D4EF">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products__Produc__3F466844" Association="Self.FK__Products__Produc__3F466844">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products__Suppli__3E52440B" Association="Self.FK__Products__Suppli__3E52440B">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InventoryManagementDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Category_ID" />
+          </Key>
+          <Property Name="Category_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Products__Produc__3F466844" FromRole="Category" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Customer_Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Customer_Telephone_Name" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="Customer_Address" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Order_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_ID" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Product_Bar_Code" Type="Int32" />
+          <Property Name="ProductName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="C_Supplier_ID" Type="Int32" />
+          <Property Name="Date_Sold" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Payment_Recieved" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="OrderProduct_ID" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Orders__OrderPro__4222D4EF" FromRole="Orders" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product_Bar_Code" />
+          </Key>
+          <Property Name="Product_Bar_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Date_Captured" Type="DateTime" Precision="0" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="Product_Location" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Warranty" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Product_CategoryID" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Products__Produc__3F466844" FromRole="Products" ToRole="Category" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__OrderPro__4222D4EF" FromRole="Products" ToRole="Orders" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK__Products__Suppli__3E52440B" FromRole="Products" ToRole="Suppliers" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Supplier_ID" />
+          </Key>
+          <Property Name="Supplier_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Supplier_Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Supplier_Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Supplier_Telephone_Number" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Products__Suppli__3E52440B" FromRole="Suppliers" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="RememberMe" Type="Boolean" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK__Products__Produc__3F466844">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Category_ID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="Product_CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__OrderPro__4222D4EF">
+          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Product_Bar_Code" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="OrderProduct_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products__Suppli__3E52440B">
+          <End Role="Suppliers" Type="Self.Supplier" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="Supplier_ID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InventoryManagementDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Products__Produc__3F466844" Association="Self.FK__Products__Produc__3F466844">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__OrderPro__4222D4EF" Association="Self.FK__Orders__OrderPro__4222D4EF">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products__Suppli__3E52440B" Association="Self.FK__Products__Suppli__3E52440B">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <FunctionImport Name="GetAllCategories" />
+          <FunctionImport Name="GetAllCustomers" ReturnType="Collection(InventoryManagementDatabaseModel.GetAllCustomers_Result)" />
+          <FunctionImport Name="GetAllOrders" ReturnType="Collection(InventoryManagementDatabaseModel.GetAllOrders_Result)" />
+          <FunctionImport Name="GetAllProducts" ReturnType="Collection(InventoryManagementDatabaseModel.GetAllProducts_Result)" />
+          <FunctionImport Name="GetAllSuppliers" ReturnType="Collection(InventoryManagementDatabaseModel.GetAllSuppliers_Result)" />
+          <FunctionImport Name="RegisterNewUser">
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="EmailAddress" Mode="In" Type="String" />
+            <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+            <Parameter Name="PasswordHash" Mode="In" Type="String" />
+            <Parameter Name="RoleId" Mode="In" Type="Int32" />
+            <Parameter Name="TerritoryId" Mode="In" Type="String" />
+            <Parameter Name="RememberMe" Mode="In" Type="Boolean" />
+            <Parameter Name="DateCreated" Mode="In" Type="DateTime" />
+            <Parameter Name="IsDeleted" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllSuppliersFromDatabase" EntitySet="Suppliers" ReturnType="Collection(InventoryManagementDatabaseModel.Supplier)" />
+          <FunctionImport Name="GetAllProductsFromDatabase" EntitySet="Products" ReturnType="Collection(InventoryManagementDatabaseModel.Product)" />
+          <FunctionImport Name="GetAllCustomersFromDatabase" EntitySet="Customers" ReturnType="Collection(InventoryManagementDatabaseModel.Customer)" />
+        </EntityContainer>
+        <ComplexType Name="GetAllCustomers_Result">
+          <Property Type="Int32" Name="Customer_ID" Nullable="false" />
+          <Property Type="String" Name="Customer_Name" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="Customer_Email" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Customer_Telephone_Name" Nullable="true" MaxLength="24" />
+          <Property Type="String" Name="Customer_Address" Nullable="true" MaxLength="24" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllOrders_Result">
+          <Property Type="Int32" Name="Order_ID" Nullable="false" />
+          <Property Type="String" Name="Customer_ID" Nullable="true" MaxLength="1" />
+          <Property Type="Int32" Name="Product_Bar_Code" Nullable="true" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="40" />
+          <Property Type="Int32" Name="C_Supplier_ID" Nullable="true" />
+          <Property Type="DateTime" Name="Date_Sold" Nullable="false" />
+          <Property Type="String" Name="Payment_Recieved" Nullable="true" MaxLength="15" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="Int32" Name="OrderProduct_ID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllProducts_Result">
+          <Property Type="Int32" Name="Product_Bar_Code" Nullable="false" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="40" />
+          <Property Type="DateTime" Name="Product_Date_Captured" Nullable="true" />
+          <Property Type="Int32" Name="SupplierID" Nullable="true" />
+          <Property Type="String" Name="Product_Location" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="Product_Status" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Product_Warranty" Nullable="true" MaxLength="20" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="Int32" Name="Product_CategoryID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllSuppliers_Result">
+          <Property Type="Int32" Name="Supplier_ID" Nullable="false" />
+          <Property Type="String" Name="Supplier_Name" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="Supplier_Email" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Supplier_Telephone_Number" Nullable="true" MaxLength="24" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="InventoryManagementDatabaseModelStoreContainer" CdmEntityContainer="InventoryManagementDatabaseEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+                <ScalarProperty Name="Customer_Email" ColumnName="Customer_Email" />
+                <ScalarProperty Name="Customer_Telephone_Name" ColumnName="Customer_Telephone_Name" />
+                <ScalarProperty Name="Customer_Address" ColumnName="Customer_Address" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Product_Bar_Code" ColumnName="Product_Bar_Code" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="C_Supplier_ID" ColumnName="[Supplier_ID" />
+                <ScalarProperty Name="Date_Sold" ColumnName="Date_Sold" />
+                <ScalarProperty Name="Payment_Recieved" ColumnName="Payment_Recieved" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="OrderProduct_ID" ColumnName="OrderProduct_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Product_Bar_Code" ColumnName="Product_Bar_Code" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Product_Date_Captured" ColumnName="Product_Date_Captured" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="Product_Location" ColumnName="Product_Location" />
+                <ScalarProperty Name="Product_Status" ColumnName="Product_Status" />
+                <ScalarProperty Name="Product_Warranty" ColumnName="Product_Warranty" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Product_CategoryID" ColumnName="Product_CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.Supplier">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="Supplier_ID" ColumnName="Supplier_ID" />
+                <ScalarProperty Name="Supplier_Name" ColumnName="Supplier_Name" />
+                <ScalarProperty Name="Supplier_Email" ColumnName="Supplier_Email" />
+                <ScalarProperty Name="Supplier_Telephone_Number" ColumnName="Supplier_Telephone_Number" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RememberMe" ColumnName="RememberMe" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetAllCategories" FunctionName="InventoryManagementDatabaseModel.Store.GetAllCategories" />
+          <FunctionImportMapping FunctionImportName="GetAllCustomers" FunctionName="InventoryManagementDatabaseModel.Store.GetAllCustomers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InventoryManagementDatabaseModel.GetAllCustomers_Result">
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+                <ScalarProperty Name="Customer_Email" ColumnName="Customer_Email" />
+                <ScalarProperty Name="Customer_Telephone_Name" ColumnName="Customer_Telephone_Name" />
+                <ScalarProperty Name="Customer_Address" ColumnName="Customer_Address" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllOrders" FunctionName="InventoryManagementDatabaseModel.Store.GetAllOrders">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InventoryManagementDatabaseModel.GetAllOrders_Result">
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Product_Bar_Code" ColumnName="Product_Bar_Code" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="C_Supplier_ID" ColumnName="[Supplier_ID" />
+                <ScalarProperty Name="Date_Sold" ColumnName="Date_Sold" />
+                <ScalarProperty Name="Payment_Recieved" ColumnName="Payment_Recieved" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="OrderProduct_ID" ColumnName="OrderProduct_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllProducts" FunctionName="InventoryManagementDatabaseModel.Store.GetAllProducts">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InventoryManagementDatabaseModel.GetAllProducts_Result">
+                <ScalarProperty Name="Product_Bar_Code" ColumnName="Product_Bar_Code" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Product_Date_Captured" ColumnName="Product_Date_Captured" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="Product_Location" ColumnName="Product_Location" />
+                <ScalarProperty Name="Product_Status" ColumnName="Product_Status" />
+                <ScalarProperty Name="Product_Warranty" ColumnName="Product_Warranty" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Product_CategoryID" ColumnName="Product_CategoryID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllSuppliers" FunctionName="InventoryManagementDatabaseModel.Store.GetAllSuppliers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InventoryManagementDatabaseModel.GetAllSuppliers_Result">
+                <ScalarProperty Name="Supplier_ID" ColumnName="Supplier_ID" />
+                <ScalarProperty Name="Supplier_Name" ColumnName="Supplier_Name" />
+                <ScalarProperty Name="Supplier_Email" ColumnName="Supplier_Email" />
+                <ScalarProperty Name="Supplier_Telephone_Number" ColumnName="Supplier_Telephone_Number" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RegisterNewUser" FunctionName="InventoryManagementDatabaseModel.Store.RegisterNewUser" />
+          <FunctionImportMapping FunctionImportName="GetAllSuppliersFromDatabase" FunctionName="InventoryManagementDatabaseModel.Store.GetAllSuppliers" />
+          <FunctionImportMapping FunctionImportName="GetAllProductsFromDatabase" FunctionName="InventoryManagementDatabaseModel.Store.GetAllProducts" />
+          <FunctionImportMapping FunctionImportName="GetAllCustomersFromDatabase" FunctionName="InventoryManagementDatabaseModel.Store.GetAllCustomers" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

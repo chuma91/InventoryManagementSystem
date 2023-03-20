@@ -1,0 +1,139 @@
+﻿@model IEnumerable<InventoryManagementSystem.Models.Product>
+@using InventoryManagementSystem.Helpers;
+@{
+    ViewBag.Title = "GetAllProducts";
+    Layout = "~/Views/Shared/_TemplateLayout.cshtml";
+}
+
+
+<link href="~/Content/datatables.min.css" rel="stylesheet" />
+<script src="~/Scripts/Products/Products.js"></script>
+
+<style>
+    .button {
+        border-radius: 20px;
+    }
+
+    a {
+        color: black;
+    }
+</style>
+
+
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h1>View Products</h1>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active"><a href="@Url.Action("Dashboard", "Home")">Dashboard</a></div>
+                <div class="breadcrumb-item">View Products</div>
+            </div>
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <a class="btn btn-success" href="@Url.Action("AddProduct", "Products")">Add + </a>
+                                       
+
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive" style="padding:5px">
+                                            <table width="100%" class="displayTable table table-striped table-hover" style="table-layout: fixed;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product Bar Code</th>
+                                                        <th>Product Name</th>
+                                                        <th>Product Warranty</th>
+                                                        <th>Product Status</th>
+                                                        <th>Product Location</th>
+                                                        <th>Supplier Name</th>
+                                                        <th>Category Name</th>
+                                                        <th>Edit</th>
+                                                        <th>Remove</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <tr>
+                                                            <td class="ellipseDescription">
+                                                                <a href="#" style="color:gray" title="@item.Product_Bar_Code">@item.Product_Bar_Code</a>
+                                                            </td>
+                                                            <td class="ellipseDescription">
+                                                                <a href="#" style="color:gray" title="@item.ProductName">@item.ProductName</a>
+                                                            </td>
+                                                            <td class="ellipseDescription">
+                                                                <a href="#" style="color:gray" title="@item.Product_Warranty">@item.Product_Warranty</a>
+                                                            </td>
+                                                            <td class="ellipseDescription">
+                                                                <a href="#" style="color:gray" title="@item.Product_Status">@item.Product_Status</a>
+                                                            </td>
+                                                            <td class="ellipseDescription">
+                                                                <a href="#" style="color:gray" title="@item.Product_Location">@item.Product_Location</a>
+                                                            </td>
+                                                            <td class="ellipseDescription">
+                                                                <a href="#" style="color:gray" title="@item.Supplier.Supplier_Name">@item.Supplier.Supplier_Name</a>
+                                                            </td>
+                                                            <td class="ellipseDescription">
+                                                                <a href="#" style="color:gray" title="@item.Category.CategoryName ">@item.Category.CategoryName</a>
+                                                            </td>
+
+                                                            
+                                                            <td>
+                                                                <a href="@Url.Action("EditProduct","Products", new {Id = item.Product_Bar_Code})" class="btn btn-warning">Edit</a>
+                                                            </td>
+                                                            <td>
+                                                                <button onclick="removeProduct('@item.Product_Bar_Code')" class="btn btn-danger">Remove</button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+@section Scripts {
+    <script src="~/Scripts/datatables.min.js">
+
+    </script>
+
+
+    <script type="text/javascript">
+        $('.displayTable').dataTable({
+            dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+            "order": [[1, "desc"]],
+            responsive: true,
+            buttons: [
+              { extend: 'copy', className: 'btn-sm'  },
+              { extend: 'csv', title: 'Products', className: 'btn-sm', exportOptions: { columns: 'th:not(:last-child)' } },
+              { extend: 'pdf', title: 'Products', className: 'btn-sm', exportOptions: { columns: 'th:not(:last-child)' } },
+              { extend: 'print', className: 'btn-sm', exportOptions: { columns: 'th:not(:last-child)' } }
+            ],
+
+            columnDefs: [{
+                "targets": [2],
+                "orderable": false,
+                "searchable": false
+            }]
+        });
+
+    </script>
+
+}
+
+
