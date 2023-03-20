@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="InventoryManagementDatabaseModelStoreContainer" CdmEntityContainer="InventoryManagementDatabaseEntities">
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.Customer">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+          <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+          <ScalarProperty Name="Customer_Email" ColumnName="Customer_Email" />
+          <ScalarProperty Name="Customer_Telephone_Name" ColumnName="Customer_Telephone_Name" />
+          <ScalarProperty Name="Customer_Address" ColumnName="Customer_Address" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+          <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+          <ScalarProperty Name="Product_Bar_Code" ColumnName="Product_Bar_Code" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="C_Supplier_ID" ColumnName="[Supplier_ID" />
+          <ScalarProperty Name="Date_Sold" ColumnName="Date_Sold" />
+          <ScalarProperty Name="Payment_Recieved" ColumnName="Payment_Recieved" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="OrderProduct_ID" ColumnName="OrderProduct_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.Product">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="Product_Bar_Code" ColumnName="Product_Bar_Code" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Product_Date_Captured" ColumnName="Product_Date_Captured" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="Product_Location" ColumnName="Product_Location" />
+          <ScalarProperty Name="Product_Status" ColumnName="Product_Status" />
+          <ScalarProperty Name="Product_Warranty" ColumnName="Product_Warranty" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Product_CategoryID" ColumnName="Product_CategoryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suppliers">
+      <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.Supplier">
+        <MappingFragment StoreEntitySet="Suppliers">
+          <ScalarProperty Name="Supplier_ID" ColumnName="Supplier_ID" />
+          <ScalarProperty Name="Supplier_Name" ColumnName="Supplier_Name" />
+          <ScalarProperty Name="Supplier_Email" ColumnName="Supplier_Email" />
+          <ScalarProperty Name="Supplier_Telephone_Number" ColumnName="Supplier_Telephone_Number" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RememberMe" ColumnName="RememberMe" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetAllCategories" FunctionName="InventoryManagementDatabaseModel.Store.GetAllCategories" />
+    <FunctionImportMapping FunctionImportName="GetAllCustomers" FunctionName="InventoryManagementDatabaseModel.Store.GetAllCustomers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="InventoryManagementDatabaseModel.GetAllCustomers_Result">
+          <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+          <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+          <ScalarProperty Name="Customer_Email" ColumnName="Customer_Email" />
+          <ScalarProperty Name="Customer_Telephone_Name" ColumnName="Customer_Telephone_Name" />
+          <ScalarProperty Name="Customer_Address" ColumnName="Customer_Address" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllOrders" FunctionName="InventoryManagementDatabaseModel.Store.GetAllOrders">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="InventoryManagementDatabaseModel.GetAllOrders_Result">
+          <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+          <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+          <ScalarProperty Name="Product_Bar_Code" ColumnName="Product_Bar_Code" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="C_Supplier_ID" ColumnName="[Supplier_ID" />
+          <ScalarProperty Name="Date_Sold" ColumnName="Date_Sold" />
+          <ScalarProperty Name="Payment_Recieved" ColumnName="Payment_Recieved" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="OrderProduct_ID" ColumnName="OrderProduct_ID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllProducts" FunctionName="InventoryManagementDatabaseModel.Store.GetAllProducts">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="InventoryManagementDatabaseModel.GetAllProducts_Result">
+          <ScalarProperty Name="Product_Bar_Code" ColumnName="Product_Bar_Code" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Product_Date_Captured" ColumnName="Product_Date_Captured" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="Product_Location" ColumnName="Product_Location" />
+          <ScalarProperty Name="Product_Status" ColumnName="Product_Status" />
+          <ScalarProperty Name="Product_Warranty" ColumnName="Product_Warranty" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Product_CategoryID" ColumnName="Product_CategoryID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllSuppliers" FunctionName="InventoryManagementDatabaseModel.Store.GetAllSuppliers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="InventoryManagementDatabaseModel.GetAllSuppliers_Result">
+          <ScalarProperty Name="Supplier_ID" ColumnName="Supplier_ID" />
+          <ScalarProperty Name="Supplier_Name" ColumnName="Supplier_Name" />
+          <ScalarProperty Name="Supplier_Email" ColumnName="Supplier_Email" />
+          <ScalarProperty Name="Supplier_Telephone_Number" ColumnName="Supplier_Telephone_Number" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="RegisterNewUser" FunctionName="InventoryManagementDatabaseModel.Store.RegisterNewUser" />
+    <FunctionImportMapping FunctionImportName="GetAllSuppliersFromDatabase" FunctionName="InventoryManagementDatabaseModel.Store.GetAllSuppliers" />
+    <FunctionImportMapping FunctionImportName="GetAllProductsFromDatabase" FunctionName="InventoryManagementDatabaseModel.Store.GetAllProducts" />
+    <FunctionImportMapping FunctionImportName="GetAllCustomersFromDatabase" FunctionName="InventoryManagementDatabaseModel.Store.GetAllCustomers" />
+  </EntityContainerMapping>
+</Mapping>
