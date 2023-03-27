@@ -14,23 +14,18 @@ namespace InventoryManagementSystem.Models
     
     public partial class Product
     {
-        public Product()
-        {
-            this.Orders = new HashSet<Order>();
-        }
-    
         public int Product_Bar_Code { get; set; }
         public string ProductName { get; set; }
         public Nullable<System.DateTime> Product_Date_Captured { get; set; }
         public Nullable<int> SupplierID { get; set; }
         public string Product_Location { get; set; }
-        public string Product_Status { get; set; }
+        public Nullable<int> Product_Status { get; set; }
         public string Product_Warranty { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
         public Nullable<int> Product_CategoryID { get; set; }
     
         public virtual Category Category { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual Product_Status Product_Status1 { get; set; }
         public virtual Supplier Supplier { get; set; }
     }
 }

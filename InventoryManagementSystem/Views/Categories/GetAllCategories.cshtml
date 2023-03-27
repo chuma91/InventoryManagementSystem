@@ -60,7 +60,7 @@
                                                                 <a href="#" style="color:gray" title="@item.Description">@item.Description</a>
                                                             </td>
                                                             <td class="ellipseDescription">
-                                                                <a href="@Url.Action("GetAllProducts", "Products")">(@{Html.RenderAction("GetNumberOfProductBycategoryId", "Products", new { categoryId = item.Category_ID });}) - Products</a>
+                                                                <a href="@Url.Action("GetAllCategories", "Category")">(@{Html.RenderAction("GetNumberOfProductBycategoryId", "Products", new { categoryId = item.Category_ID });}) - Products</a>
                                                             </td>
                                                             <td>
                                                                 <a href="@Url.Action("EditCategory", "Categories", new {Id = item.Category_ID})" class="btn btn-warning">Edit</a>

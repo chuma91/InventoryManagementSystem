@@ -254,13 +254,3 @@ function AddProduct() {
 
 }
 
-$.ajax({
-    type: "GET",
-    url: "/Products/BarChart",
-    data: {},
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    success: function (response) {
-        successFunc(response);
-    },
-});

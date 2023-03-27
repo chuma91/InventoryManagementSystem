@@ -48,9 +48,12 @@
                                                     </span>
                                                     <div class="row">
                                                         <div class="form-group col-12">
-                                                            <label class="required">Category Name</label>
-                                                            @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", id = "ProductName", maxlength = 40, placeholder = "Enter Product Name", required = "required" })
-                                                            @Html.ValidationMessageFor(m => m.ProductName, "", new { @class = "text-danger" })
+                                                            <label class="required">Product Name</label>
+                                                            @*@Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", id = "ProductName", maxlength = 40, placeholder = "Enter Product Name", required = "required" })*@
+                                                            @Html.DropDownList("ProductName", null, "Select product", htmlAttributes: new { @class = "form-control", required = "autofocus" })
+                                                            <div class="invalid-feedback">
+                                                                Please Select your product
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -83,15 +86,18 @@
                                                     <div class="row">
                                                         <div class="form-group col-12">
                                                             <label class="required">Payment Recieved</label>
-                                                            @Html.TextBoxFor(m => m.Payment_Recieved, new { @class = "form-control", id = "PaymentRecieved", maxlength = 20, placeholder = "Payment Recieved", required = "required" })
-                                                            @Html.ValidationMessageFor(m => m.Payment_Recieved, "", new { @class = "text-danger" })
+                                                            @*@Html.TextBoxFor(m => m.Payment_Recieved, new { @class = "form-control", id = "PaymentRecieved", placeholder = "Payment Recieved", required = "required" })*@
+                                                            @Html.DropDownList("PaymentRecieved", null, "Select payment status", htmlAttributes: new { @class = "form-control", required = "autofocus" })
+                                                            <div class="invalid-feedback">
+                                                                Please Select Payment Status
+                                                            </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
                                                         <div class="form-group col-12">
                                                             <label class="required">Date Sold</label>
-                                                            <input type="text" id="DateSold", placeholder="MM/DD/YYYY">
+                                                            <input type="text" id="DateSold" , placeholder="MM/DD/YYYY">
                                                             @Html.ValidationMessageFor(m => m.Date_Sold, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
@@ -118,15 +124,3 @@
         </div>
     </section>
 </div>
-@section Scripts {
-  
-    <script src="~/Scripts/bootstrap-datepicker.js"></script>
-    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("#DateSold").datepicker();
-        });
-
-    </script>
-
-    }

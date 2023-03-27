@@ -1,9 +1,11 @@
 ﻿using InventoryManagementSystem.Models;
 using InventoryManagementSystem.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace InventoryManagementSystem.BusinessLogic
 {
@@ -26,6 +28,9 @@ namespace InventoryManagementSystem.BusinessLogic
             return od;
         }
 
+
+
+    
         public bool RemoveOrderById(int OrderId)
         {
             bool result = false;
@@ -94,7 +99,7 @@ namespace InventoryManagementSystem.BusinessLogic
                 obj.Payment_Recieved = orderViewModel.PaymentRecieved;
                 obj.ProductName = orderViewModel.ProductName;
                 obj.Date_Sold = orderViewModel.DateSold;
-
+                
                 obj.IsDeleted = false;
 
                 db.Orders.Add(obj);

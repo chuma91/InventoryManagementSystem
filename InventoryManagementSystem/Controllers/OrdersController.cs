@@ -1,11 +1,13 @@
 ﻿using InventoryManagementSystem.BusinessLogic;
 using InventoryManagementSystem.Models;
 using InventoryManagementSystem.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace InventoryManagementSystem.Controllers
 {
@@ -19,7 +21,9 @@ namespace InventoryManagementSystem.Controllers
             return View(orderBusiness.GetAllOrders());
         }
 
-        
+    
+
+
         [HttpPost]
         public ActionResult RemoveOrder(int Id)
         {
@@ -33,7 +37,7 @@ namespace InventoryManagementSystem.Controllers
         {
             Order result = orderBusiness.GetOrderById(Id);
             TempData["ID"] = Id;
-
+            ViewBag.PaymentRecieved = new SelectList(db.Payment_Status.ToList().Where(x => x.IsDeleted == false), "Status_ID", "Status_Name");
             return View(result);
         }
         [HttpPost]
@@ -52,6 +56,8 @@ namespace InventoryManagementSystem.Controllers
             ViewBag.Customer_ID = new SelectList(db.Customers.ToList().Where(x => x.IsDeleted == false), "Customer_ID", "Customer_Name");
             ViewBag.Supplier_ID = new SelectList(db.Suppliers.ToList().Where(x => x.IsDeleted == false), "Supplier_ID", "Supplier_Name");
             ViewBag.Category_ID = new SelectList(db.Categories.ToList().Where(x => x.IsDeleted == false), "Category_ID", "CategoryName");
+            ViewBag.PaymentRecieved = new SelectList(db.Payment_Status.ToList().Where(x => x.IsDeleted == false), "Status_ID", "Status_Name");
+            ViewBag.ProductName = new SelectList(db.Products.ToList().Where(x => x.IsDeleted == false), "Product_Bar_Code", "ProductName");
             return View();
         }
         [HttpPost]
@@ -62,5 +68,7 @@ namespace InventoryManagementSystem.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+      
     }
 }

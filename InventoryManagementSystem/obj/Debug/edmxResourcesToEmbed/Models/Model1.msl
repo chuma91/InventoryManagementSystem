@@ -35,6 +35,25 @@
           <ScalarProperty Name="Payment_Recieved" ColumnName="Payment_Recieved" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="OrderProduct_ID" ColumnName="OrderProduct_ID" />
+          <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payment_Status">
+      <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.Payment_Status">
+        <MappingFragment StoreEntitySet="Payment_Status">
+          <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
+          <ScalarProperty Name="Status_Name" ColumnName="Status_Name" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Product_Status">
+      <EntityTypeMapping TypeName="InventoryManagementDatabaseModel.Product_Status">
+        <MappingFragment StoreEntitySet="Product_Status">
+          <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
+          <ScalarProperty Name="Status_Name" ColumnName="Status_Name" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -115,6 +134,7 @@
           <ScalarProperty Name="Payment_Recieved" ColumnName="Payment_Recieved" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="OrderProduct_ID" ColumnName="OrderProduct_ID" />
+          <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

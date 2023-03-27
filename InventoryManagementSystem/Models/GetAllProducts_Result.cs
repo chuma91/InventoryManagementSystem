@@ -18,7 +18,7 @@ namespace InventoryManagementSystem.Models
         public Nullable<System.DateTime> Product_Date_Captured { get; set; }
         public Nullable<int> SupplierID { get; set; }
         public string Product_Location { get; set; }
-        public string Product_Status { get; set; }
+        public Nullable<int> Product_Status { get; set; }
         public string Product_Warranty { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
         public Nullable<int> Product_CategoryID { get; set; }

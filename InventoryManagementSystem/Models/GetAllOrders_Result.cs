@@ -22,5 +22,6 @@ namespace InventoryManagementSystem.Models
         public string Payment_Recieved { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
         public Nullable<int> OrderProduct_ID { get; set; }
+        public Nullable<int> Category_ID { get; set; }
     }
 }

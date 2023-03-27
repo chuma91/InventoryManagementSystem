@@ -15,7 +15,7 @@ namespace InventoryManagementSystem.ViewModels
         public string CategoryName { get; set; }
         public DateTime ProductDateCaptured { get; set; }
         public string Location { get; set; }
-        public string ProductStatus { get; set; }
+        public int ProductStatus { get; set; }
         public string ProductWarranty { get; set; }
 
 

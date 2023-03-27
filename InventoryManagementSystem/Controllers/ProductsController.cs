@@ -1,5 +1,7 @@
 ﻿using InventoryManagementSystem.Models;
 using InventoryManagementSystem.ViewModels;
+using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +37,7 @@ namespace InventoryManagementSystem.Controllers
             TempData["ID"] = Id;
             ViewBag.Supplier_ID = new SelectList(db.Suppliers.ToList().Where(x => x.IsDeleted == false), "Supplier_ID", "Supplier_Name", result.SupplierID);
             ViewBag.Category_ID = new SelectList(db.Categories.ToList().Where(x => x.IsDeleted == false), "Category_ID", "CategoryName", result.Product_CategoryID);
+            ViewBag.ProductStatus = new SelectList(db.Product_Status.ToList().Where(x => x.IsDeleted == false), "Status_ID", "Status_Name");
 
             return View(result);
         }
@@ -52,6 +55,7 @@ namespace InventoryManagementSystem.Controllers
         {
             ViewBag.Supplier_ID = new SelectList(db.Suppliers.ToList().Where(x => x.IsDeleted == false), "Supplier_ID", "Supplier_Name");
             ViewBag.Category_ID = new SelectList(db.Categories.ToList().Where(x => x.IsDeleted == false), "Category_ID", "CategoryName");
+            ViewBag.ProductStatus = new SelectList(db.Product_Status.ToList().Where(x => x.IsDeleted == false), "Status_ID", "Status_Name");
             return View();
         }
         [HttpPost]

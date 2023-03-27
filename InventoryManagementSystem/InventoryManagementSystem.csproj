@@ -180,7 +180,13 @@
     <Compile Include="Models\Order.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Payment_Status.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product_Status.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs">
@@ -5119,8 +5125,6 @@
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap4.min.js" />
-    <Content Include="Scripts\c3.js" />
-    <Content Include="Scripts\c3.min.js" />
     <Content Include="Scripts\canvasjs.min.js" />
     <Content Include="Scripts\Categories\Categories.js" />
     <Content Include="Scripts\chat.js" />
@@ -5212,6 +5216,7 @@
     <Content Include="Views\Orders\GetAllOrders.cshtml" />
     <Content Include="Views\Orders\AddOrder.cshtml" />
     <Content Include="Views\Customer\EditCustomer.cshtml" />
+    <Content Include="Views\Home\_GetAllOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

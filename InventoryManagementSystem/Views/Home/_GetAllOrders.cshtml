@@ -1,0 +1,124 @@
+﻿@model IEnumerable<InventoryManagementSystem.Models.Order>
+@{
+    ViewBag.Title = "GetAllOrders";
+    Layout = "~/Views/Shared/_TemplateLayout.cshtml";
+}
+
+<link href="~/Content/datatables.min.css" rel="stylesheet" />
+
+<style>
+    .button {
+        border-radius: 20px;
+    }
+
+    a {
+        color: black;
+    }
+</style>
+
+
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h1>View Orders</h1>
+            @*<div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active"><a href="@Url.Action("Dashboard", "Home")">Dashboard</a></div>
+                <div class="breadcrumb-item">View Orders</div>
+            </div>*@
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <a class="btn btn-success" href="@Url.Action("AddOrder", "Orders")">Add + </a>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive" style="padding:5px">
+                                            <table width="100%" class="displayTable table table-striped table-hover" style="table-layout: fixed;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Order ID</th>
+                                                        <th>Product Name</th>
+                                                        <th>Supplier</th>
+                                                        <th>Payment Recieved</th>
+                                                        <th>Date Sold</th>
+                                                        <th>Customer</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <tr>
+                                                            <td class="ellipseDescription">
+                                                                <a href="#" style="color:gray" title="@item.Order_ID">@item.Order_ID</a>
+                                                            </td>
+                                                            <td class="ellipseDescription">
+                                                                <a href="#" style="color:gray" title="@item.">@item.ProductName</a>
+                                                            </td>
+                                                            <td class="ellipseDescription">
+                                                                <a href="#" style="color:gray" title="@item.C_Supplier_ID">@item.C_Supplier_ID</a>
+                                                            </td>
+                                                            <td class="ellipseDescription">
+                                                                <a href="#" style="color:gray" title="@item.Payment_Recieved">@item.Payment_Recieved</a>
+                                                            </td>
+
+                                                            <td class="ellipseDescription">
+                                                                <a href="#" style="color:gray" title="@item.Date_Sold">@item.Date_Sold</a>
+                                                            </td>
+                                                            <td class="ellipseDescription">
+                                                                <a href="#" style="color:gray" title="@item.Customer_ID">@item.Customer_ID</a>
+                                                            </td>
+
+
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+@section Scripts {
+    <script src="~/Scripts/datatables.min.js"></script>
+
+
+    <script type="text/javascript">
+        $('.displayTable').dataTable({
+            dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+            "order": [[1, "desc"]],
+            responsive: true,
+            buttons: [
+                { extend: 'copy', className: 'btn-sm' },
+                { extend: 'csv', title: 'Supplier', className: 'btn-sm', exportOptions: { columns: 'th:not(:last-child)' } },
+                { extend: 'pdf', title: 'Supplier', className: 'btn-sm', exportOptions: { columns: 'th:not(:last-child)' } },
+                { extend: 'print', className: 'btn-sm', exportOptions: { columns: 'th:not(:last-child)' } }
+            ],
+
+            columnDefs: [{
+                "targets": [2],
+                "orderable": false,
+                "searchable": false
+            }]
+        });
+
+    </script>
+
+}
+
+
+
+

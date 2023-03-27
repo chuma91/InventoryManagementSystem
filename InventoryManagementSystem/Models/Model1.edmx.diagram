@@ -4,17 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="63b651172aba4f8882602b6540959405" Name="Diagram1">
-        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.Category" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.Customer" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.Order" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.Role" Width="1.5" PointX="4.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.Supplier" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.User" Width="1.5" PointX="6.75" PointY="5.75" IsExpanded="true" />
-        <AssociationConnector Association="InventoryManagementDatabaseModel.FK__Products__Produc__3F466844" ManuallyRouted="false" />
-        <AssociationConnector Association="InventoryManagementDatabaseModel.FK__Orders__OrderPro__4222D4EF" ManuallyRouted="false" />
-        <AssociationConnector Association="InventoryManagementDatabaseModel.FK__Products__Suppli__3E52440B" ManuallyRouted="false" />
+      <Diagram DiagramId="07f11dbbf7db49219e8bd842905fae57" Name="Diagram1">
+        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.Category" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.Customer" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.Order" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.Payment_Status" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.Product_Status" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.Product" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.Role" Width="1.5" PointX="5.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.Supplier" Width="1.5" PointX="3.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagementDatabaseModel.User" Width="1.5" PointX="7.75" PointY="8" IsExpanded="true" />
+        <AssociationConnector Association="InventoryManagementDatabaseModel.FK__Orders__Category__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagementDatabaseModel.FK__Orders__Category__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagementDatabaseModel.FK__Products__Produc__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagementDatabaseModel.FK__Products__Produc__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagementDatabaseModel.FK__Products__Suppli__73BA3083" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

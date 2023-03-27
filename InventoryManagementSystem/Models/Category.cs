@@ -16,6 +16,8 @@ namespace InventoryManagementSystem.Models
     {
         public Category()
         {
+            this.Orders = new HashSet<Order>();
+            this.Orders1 = new HashSet<Order>();
             this.Products = new HashSet<Product>();
         }
     
@@ -24,6 +26,8 @@ namespace InventoryManagementSystem.Models
         public string Description { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
     
+        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Orders1 { get; set; }
         public virtual ICollection<Product> Products { get; set; }
     }
 }

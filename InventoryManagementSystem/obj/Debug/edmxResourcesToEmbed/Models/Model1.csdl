@@ -8,7 +8,9 @@
     <Property Name="CategoryName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="IsDeleted" Type="Boolean" />
-    <NavigationProperty Name="Products" Relationship="Self.FK__Products__Produc__3F466844" FromRole="Category" ToRole="Products" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Category__6D0D32F4" FromRole="Category" ToRole="Orders" />
+    <NavigationProperty Name="Orders1" Relationship="Self.FK__Orders__Category__6E01572D" FromRole="Category" ToRole="Orders" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Products__Produc__72C60C4A" FromRole="Category" ToRole="Products" />
   </EntityType>
   <EntityType Name="Customer">
     <Key>
@@ -34,7 +36,26 @@
     <Property Name="Payment_Recieved" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="IsDeleted" Type="Boolean" />
     <Property Name="OrderProduct_ID" Type="Int32" />
-    <NavigationProperty Name="Product" Relationship="Self.FK__Orders__OrderPro__4222D4EF" FromRole="Orders" ToRole="Products" />
+    <Property Name="Category_ID" Type="Int32" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__Orders__Category__6D0D32F4" FromRole="Orders" ToRole="Category" />
+    <NavigationProperty Name="Category1" Relationship="Self.FK__Orders__Category__6E01572D" FromRole="Orders" ToRole="Category" />
+  </EntityType>
+  <EntityType Name="Payment_Status">
+    <Key>
+      <PropertyRef Name="Status_ID" />
+    </Key>
+    <Property Name="Status_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status_Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="IsDeleted" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Product_Status">
+    <Key>
+      <PropertyRef Name="Status_ID" />
+    </Key>
+    <Property Name="Status_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status_Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Products__Produc__71D1E811" FromRole="Product_Status" ToRole="Products" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -45,13 +66,13 @@
     <Property Name="Product_Date_Captured" Type="DateTime" Precision="0" />
     <Property Name="SupplierID" Type="Int32" />
     <Property Name="Product_Location" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
-    <Property Name="Product_Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Product_Status" Type="Int32" />
     <Property Name="Product_Warranty" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="IsDeleted" Type="Boolean" />
     <Property Name="Product_CategoryID" Type="Int32" />
-    <NavigationProperty Name="Category" Relationship="Self.FK__Products__Produc__3F466844" FromRole="Products" ToRole="Category" />
-    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__OrderPro__4222D4EF" FromRole="Products" ToRole="Orders" />
-    <NavigationProperty Name="Supplier" Relationship="Self.FK__Products__Suppli__3E52440B" FromRole="Products" ToRole="Suppliers" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__Products__Produc__72C60C4A" FromRole="Products" ToRole="Category" />
+    <NavigationProperty Name="Product_Status1" Relationship="Self.FK__Products__Produc__71D1E811" FromRole="Products" ToRole="Product_Status" />
+    <NavigationProperty Name="Supplier" Relationship="Self.FK__Products__Suppli__73BA3083" FromRole="Products" ToRole="Suppliers" />
   </EntityType>
   <EntityType Name="Role">
     <Key>
@@ -71,7 +92,7 @@
     <Property Name="Supplier_Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="Supplier_Telephone_Number" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
     <Property Name="IsDeleted" Type="Boolean" />
-    <NavigationProperty Name="Products" Relationship="Self.FK__Products__Suppli__3E52440B" FromRole="Suppliers" ToRole="Products" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Products__Suppli__73BA3083" FromRole="Suppliers" ToRole="Products" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -88,7 +109,31 @@
     <Property Name="DateCreated" Type="DateTime" Precision="3" />
     <Property Name="IsDeleted" Type="Boolean" />
   </EntityType>
-  <Association Name="FK__Products__Produc__3F466844">
+  <Association Name="FK__Orders__Category__6D0D32F4">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Category_ID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="Category_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__Category__6E01572D">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Category_ID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="Category_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Products__Produc__72C60C4A">
     <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
     <End Role="Products" Type="Self.Product" Multiplicity="*" />
     <ReferentialConstraint>
@@ -100,19 +145,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Orders__OrderPro__4222D4EF">
-    <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
-    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+  <Association Name="FK__Products__Produc__71D1E811">
+    <End Role="Product_Status" Type="Self.Product_Status" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Products">
-        <PropertyRef Name="Product_Bar_Code" />
+      <Principal Role="Product_Status">
+        <PropertyRef Name="Status_ID" />
       </Principal>
-      <Dependent Role="Orders">
-        <PropertyRef Name="OrderProduct_ID" />
+      <Dependent Role="Products">
+        <PropertyRef Name="Product_Status" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Products__Suppli__3E52440B">
+  <Association Name="FK__Products__Suppli__73BA3083">
     <End Role="Suppliers" Type="Self.Supplier" Multiplicity="0..1" />
     <End Role="Products" Type="Self.Product" Multiplicity="*" />
     <ReferentialConstraint>
@@ -128,19 +173,29 @@
     <EntitySet Name="Categories" EntityType="Self.Category" />
     <EntitySet Name="Customers" EntityType="Self.Customer" />
     <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Payment_Status" EntityType="Self.Payment_Status" />
+    <EntitySet Name="Product_Status" EntityType="Self.Product_Status" />
     <EntitySet Name="Products" EntityType="Self.Product" />
     <EntitySet Name="Roles" EntityType="Self.Role" />
     <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
     <EntitySet Name="Users" EntityType="Self.User" />
-    <AssociationSet Name="FK__Products__Produc__3F466844" Association="Self.FK__Products__Produc__3F466844">
+    <AssociationSet Name="FK__Orders__Category__6D0D32F4" Association="Self.FK__Orders__Category__6D0D32F4">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__Category__6E01572D" Association="Self.FK__Orders__Category__6E01572D">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Products__Produc__72C60C4A" Association="Self.FK__Products__Produc__72C60C4A">
       <End Role="Category" EntitySet="Categories" />
       <End Role="Products" EntitySet="Products" />
     </AssociationSet>
-    <AssociationSet Name="FK__Orders__OrderPro__4222D4EF" Association="Self.FK__Orders__OrderPro__4222D4EF">
+    <AssociationSet Name="FK__Products__Produc__71D1E811" Association="Self.FK__Products__Produc__71D1E811">
+      <End Role="Product_Status" EntitySet="Product_Status" />
       <End Role="Products" EntitySet="Products" />
-      <End Role="Orders" EntitySet="Orders" />
     </AssociationSet>
-    <AssociationSet Name="FK__Products__Suppli__3E52440B" Association="Self.FK__Products__Suppli__3E52440B">
+    <AssociationSet Name="FK__Products__Suppli__73BA3083" Association="Self.FK__Products__Suppli__73BA3083">
       <End Role="Suppliers" EntitySet="Suppliers" />
       <End Role="Products" EntitySet="Products" />
     </AssociationSet>
@@ -183,6 +238,7 @@
     <Property Type="String" Name="Payment_Recieved" Nullable="true" MaxLength="15" />
     <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
     <Property Type="Int32" Name="OrderProduct_ID" Nullable="true" />
+    <Property Type="Int32" Name="Category_ID" Nullable="true" />
   </ComplexType>
   <ComplexType Name="GetAllProducts_Result">
     <Property Type="Int32" Name="Product_Bar_Code" Nullable="false" />
@@ -190,7 +246,7 @@
     <Property Type="DateTime" Name="Product_Date_Captured" Nullable="true" />
     <Property Type="Int32" Name="SupplierID" Nullable="true" />
     <Property Type="String" Name="Product_Location" Nullable="true" MaxLength="40" />
-    <Property Type="String" Name="Product_Status" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="Product_Status" Nullable="true" />
     <Property Type="String" Name="Product_Warranty" Nullable="true" MaxLength="20" />
     <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
     <Property Type="Int32" Name="Product_CategoryID" Nullable="true" />

@@ -72,10 +72,14 @@
                                                     <div class="row">
                                                         <div class="form-group col-12">
                                                             <label class="required">Product Status</label>
-                                                            @Html.TextBoxFor(m => m.Product_Status, new { @class = "form-control", id = "ProductStatus", maxlength = 20, placeholder = "Enter Product Status", required = "required" })
-                                                            @Html.ValidationMessageFor(m => m.Product_Status, "", new { @class = "text-danger" })
+                                                            @*@Html.TextBoxFor(m => m.Product_Status, new { @class = "form-control", id = "ProductStatus", maxlength = 20, placeholder = "Enter Product Status", required = "required" })*@
+                                                            @Html.DropDownList("ProductStatus", null, "Select product status", htmlAttributes: new { @class = "form-control", required = "autofocus" })
+                                                            <div class="invalid-feedback">
+                                                                Please Select Product Status
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    
                                                     <div class="row">
                                                         <div class="form-group col-12">
                                                             <label for="workRequestTitle" class="required">Product Location</label><br />
@@ -99,13 +103,13 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="row">
-                                                        <div class="form-group col-12">
-                                                            <label class="required">Product Date Captured</label>
-                                                            <input type="text" id="ProductDateCaptured" , placeholder="MM/DD/YYYY">
-                                                            @Html.ValidationMessageFor(m => m.Product_Date_Captured, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
+                                                    @*<div class="row">
+            <div class="form-group col-12">
+                <label class="required">Product Date Captured</label>
+                <input type="text" id="ProductDateCaptured" , placeholder="MM/DD/YYYY">
+                @Html.ValidationMessageFor(m => m.Product_Date_Captured, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
                                                     <div class="row form-group">
                                                         <div class="col-md-4"></div>
                                                         <div class="col-md-5">
@@ -132,16 +136,3 @@
 
     </section>
 </div>
-
-@section Scripts {
-    <script src="~/Scripts/bootstrap-datepicker.js"></script>
-    <script src="~/Scripts/bootstrap-datepicker.js"></script>
-    
-    <script type="text/javascript">
-        $(function () {
-            $("#ProductDateCaptured").datepicker();
-        });
-
-    </script>
-
-}

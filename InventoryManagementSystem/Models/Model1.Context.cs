@@ -31,6 +31,8 @@ namespace InventoryManagementSystem.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Payment_Status> Payment_Status { get; set; }
+        public DbSet<Product_Status> Product_Status { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
